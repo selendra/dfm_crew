@@ -1,6 +1,8 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mdw_crew/components/dialog_c.dart';
 import 'package:mdw_crew/components/text_c.dart';
 import 'package:mdw_crew/home/pages/check.dart';
@@ -30,7 +32,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    
+
     controller.addListener(() {
       setState(() {
         
@@ -212,17 +214,45 @@ class _HomeState extends State<Home> {
 
                         DialogCom().dialogMessage(
                           context, 
-                          title: MyText(text: "Sign Out"), 
-                          content: MyText(text: "Are you sure wanna sign out?",),
-                          action2: Container(
-                            margin: EdgeInsets.only(left: 10),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all(Colors.red),
-                                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
+                          title: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: SizedBox(
+                              width: 30,
+                              child: Lottie.asset(
+                                "assets/animation/exit.json",
+                                repeat: true,
+                                reverse: true,
+                                height: 100
                               ),
+                            ),
+                          ), 
+                          edgeInsetsGeometry: const EdgeInsets.all(20),
+                          content: AnimatedTextKit(
+                            repeatForever: true,
+                            pause: const Duration(seconds: 1),
+                            animatedTexts: [
+
+                              TypewriterAnimatedText(
+                                "Are you sure wanna log out?",
+                                textAlign: TextAlign.center,
+                                textStyle: TextStyle(
+                                  fontSize: 14
+                                )
+                              ),
+
+                            ],
+                          ),
+                          // MyText(text: "Are you sure wanna sign out?",),
+                          action2: Container(
+                            // margin: EdgeInsets.only(left: 10),
+                            child: TextButton(
+                              // style: ButtonStyle(
+                              //   backgroundColor: MaterialStateProperty.all(Colors.red),
+                              //   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+                              // ),
                               onPressed: () async {
-                                DialogCom().dialogLoading(context, content: "Loggin Out");
+
+                                DialogCom().dialogLoading(context, content: "Signing Out");
                                 await StorageServices.clearStorage();
                                                 
                                 // Dispose Web Socket
@@ -234,7 +264,7 @@ class _HomeState extends State<Home> {
                                   (route) => false
                                 );
                               },
-                              child: const MyText(text: "Yes", left: 10, right: 10, color2: Colors.white,),
+                              child: const MyText(text: "Yes", left: 10, right: 10, color2: Colors.red, fontSize: 12, fontWeight: FontWeight.bold,),
                             ),
                           ),
                         );

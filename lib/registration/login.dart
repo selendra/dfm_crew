@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mdw_crew/auth/google_login_a.dart';
 import 'package:mdw_crew/backend/post_api.dart';
 import 'package:mdw_crew/components/dialog_c.dart';
 import 'package:mdw_crew/components/input_field_c.dart';
@@ -13,6 +14,7 @@ import 'package:mdw_crew/model/login_m.dart';
 import 'package:mdw_crew/service/storage.dart';
 import 'package:transition/transition.dart';
 import 'package:vibration/vibration.dart';
+import 'package:auth_buttons/auth_buttons.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -159,6 +161,17 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+              // GoogleAuthButton(
+              //   onPressed: () async {
+              //     await Authentication.signInWithGoogle(context: context);
+              //   },
+              //   style: const AuthButtonStyle(
+              //     buttonType: AuthButtonType.icon,
+              //     iconType: AuthIconType.secondary,
+              //   ),
+              //   themeMode: ThemeMode.light,
+              // ),
               
               MyText(
                 text: "LOGIN WITH YOUR EMAIL",
@@ -209,6 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ),
               )
+
             ],
           ),
         ),

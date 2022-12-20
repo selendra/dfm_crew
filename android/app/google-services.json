@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "492447338425",
+    "project_id": "dfm-project-b8cc7",
+    "storage_bucket": "dfm-project-b8cc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492447338425:android:20dc43ddfef48fe664b068",
+        "android_client_info": {
+          "package_name": "com.doformetaverse.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "492447338425-23r1u4r3iouu9b4tlfeg5ai985q93s8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7DPKBhDYfdLHoKXo6CaODfHWlUll4ZLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "492447338425-23r1u4r3iouu9b4tlfeg5ai985q93s8p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

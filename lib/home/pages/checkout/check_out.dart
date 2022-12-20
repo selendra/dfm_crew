@@ -82,15 +82,15 @@ class _CheckOutState extends State<CheckOut> {
     return Consumer<MDWSocketProvider>(
       builder: (context, provider, widget) {
         return Container(
-          color: Colors.red.withOpacity(0.15),
+          color: Colors.redAccent.withOpacity(0.15),
           padding: const EdgeInsets.all(20),
           child: Column(
         
             children: [
         
-              const Align(
+              Align(
                 alignment: Alignment.topLeft,
-                child: MyText(text: "Check Out", fontSize: 25, fontWeight: FontWeight.w600, color2: Colors.red,),
+                child: MyText(text: "Check Out", fontSize: 25, fontWeight: FontWeight.w600, color2: Colors.redAccent,),
               ),
 
               Expanded(

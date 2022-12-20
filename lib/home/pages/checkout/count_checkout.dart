@@ -36,52 +36,43 @@ class CheckoutCount extends StatelessWidget {
             Consumer<MDWSocketProvider>(
               builder: (context, provider, w) {
 
-                return Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      
-                      AnimatedTextKit(
-                        repeatForever: true,
-                        pause: const Duration(seconds: 1),
-                        animatedTexts: [
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    
+                    AnimatedTextKit(
+                      repeatForever: true,
+                      pause: const Duration(seconds: 1),
+                      animatedTexts: [
           
-                          WavyAnimatedText(
-                            title!,
-                            textAlign: TextAlign.center,
-                            textStyle: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
+                        WavyAnimatedText(
+                          title!,
+                          textAlign: TextAlign.center,
+                          textStyle: TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
                           ),
+                        ),
           
-                        ],
-                      ),
-
-                      // MyText(
-                      //   text: title,
-                      //   fontSize: 25,
-                      //   color2: Colors.white,
-                      //   bottom: 30,
-                      // ),
-                      
-                      MyText(
-                        top: 30,
-                        text: hallId == "tga" ? provider.tga.checkOut.toString() : provider.vga.checkOut.toString(),
-                        fontSize: 50,
-                        bottom: 30,
-                        color2: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      )
-                    ],
-                  )
+                      ],
+                    ),
+                    
+                    MyText(
+                      top: 30,
+                      text: hallId == "tga" ? provider.tga.checkOut.toString() : provider.vga.checkOut.toString(),
+                      fontSize: 50,
+                      bottom: 30,
+                      color2: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )
+                  ],
                 );
               }
             ),
 
             Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
+              margin: EdgeInsets.only(left: 20, right: 20, top: 30),
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red),
@@ -107,8 +98,7 @@ class CheckoutCount extends StatelessWidget {
                 )
               ),
             ),
-
-            SizedBox(height: 100,)
+            
           ],
         ),
       ),

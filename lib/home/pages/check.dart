@@ -47,11 +47,17 @@ class _CheckState extends State<Check> {
 
           await DialogCom().dialogMessage(
             context, 
-            title: Lottie.asset(
-              "assets/animation/successful.json",
-              repeat: true,
-              reverse: true,
-              height: 80
+            title: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: SizedBox(
+                width: 30,
+                child: Lottie.asset(
+                  "assets/animation/successful.json",
+                  repeat: true,
+                  reverse: true,
+                  height: 100
+                ),
+              ),
             ), 
             content: const MyText(text: "Your ticket have been successfully validated", fontWeight: FontWeight.w500, left: 10, right: 10,)
           );
@@ -62,11 +68,17 @@ class _CheckState extends State<Check> {
 
           await DialogCom().dialogMessage(
             context,
-            title: Lottie.asset(
-              "assets/animation/failed.json",
-              repeat: true,
-              reverse: true,
-              height: 80
+            title: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: SizedBox(
+                width: 30,
+                child: Lottie.asset(
+                  "assets/animation/failed.json",
+                  repeat: true,
+                  reverse: true,
+                  height: 100
+                ),
+              ),
             ), 
             content: MyText(text: json.decode(value.body)['message'], fontWeight: FontWeight.w500, left: 10, right: 10,)
           );
@@ -82,11 +94,17 @@ class _CheckState extends State<Check> {
 
       DialogCom().dialogMessage(
         context, 
-        title: Lottie.asset(
-          "assets/animation/failed.json",
-          repeat: true,
-          reverse: true,
-          height: 80
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: SizedBox(
+            width: 30,
+            child: Lottie.asset(
+              "assets/animation/failed.json",
+              repeat: true,
+              reverse: true,
+              height: 100
+            ),
+          ),
         ), 
         content: MyText(text: "Something wrong $e", fontWeight: FontWeight.w500, left: 10, right: 10,)
       );
@@ -122,23 +140,12 @@ class _CheckState extends State<Check> {
               
                     EventCardCom(
                       func: () async {
-              
-                        // SoundUtil.soundAndVibrate('mixkit-digital-quick-tone-2866.wav');
-                        // await DialogCom().dialogMessage(
-                        //   context,
-                        //   title: Lottie.asset(
-                        //     "assets/animation/failed.json",
-                        //     repeat: true,
-                        //     reverse: true,
-                        //     height: 80
-                        //   ), 
-                        //   content: MyText(text: "json.decode(value.body)['message']", fontWeight: FontWeight.w500, left: 10, right: 10,)
-                        // );
-
+    
                         Navigator.push(
                           context, 
                           Transition(child: QrScanner(title: 'The Greatest Artist', func: scanCheck), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
                         );
+
                       },
                       title: 'The Greatest Artist',
                       img: 'tga.png',
@@ -148,6 +155,7 @@ class _CheckState extends State<Check> {
               
                     EventCardCom(
                       func: (){
+                        
                         Navigator.push(
                           context, 
                           Transition(child: QrScanner(title: 'Van Gogh Alive', func: scanCheck), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)

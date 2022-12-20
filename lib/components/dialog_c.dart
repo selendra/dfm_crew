@@ -5,29 +5,38 @@ import 'package:mdw_crew/tool/app_utils.dart';
 
 class DialogCom {
   
-  dialogMessage(BuildContext context, {Widget? title, Widget? content, Widget? action2}) {
+  dialogMessage(
+    BuildContext context, 
+    {Widget? title, 
+    Widget? content, 
+    Widget? action2,
+    EdgeInsetsGeometry? edgeInsetsGeometry
+  }
+  ) {
 
     return showDialog(
       barrierDismissible: true,
       context: context,
       builder: (context) {
+
         return AlertDialog(
           title: title!,
-          titlePadding: const EdgeInsets.all(20),
+          // titlePadding: const EdgeInsets.all(20),
+          titlePadding: edgeInsetsGeometry,
           content: content,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.only(bottom: 20, left: 10, right: 10, top: 5),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
           actions: [
             
-            ElevatedButton(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.grey),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15)))),
-              ),
+            TextButton(
+              // style: ButtonStyle(
+              //   backgroundColor: MaterialStateProperty.all(Colors.white.withOpacity(1)),
+              //   shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
+              // ),
               onPressed: (){
                 Navigator.pop(context);
               },
-              child: const MyText(text: "Close", left: 10, right: 10, color2: Colors.white,),
+              child: const MyText(text: "Close", left: 10, right: 10, color2: Colors.black, fontSize: 12, fontWeight: FontWeight.bold),
             ),
 
             action2 ?? Container()

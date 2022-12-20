@@ -38,8 +38,6 @@ class _AdmissionState extends State<Admission> {
 
       await PostRequest.addmissionFunc(eventId, url).then((value) async {
         
-        print("value.body ${value.body}");
-        
         if (value.statusCode == 200 && json.decode(value.body)['status'] == 'Success'){
 
           _isSuccess = false;
@@ -50,11 +48,17 @@ class _AdmissionState extends State<Admission> {
 
           await DialogCom().dialogMessage(
             context, 
-            title: Lottie.asset(
-              "assets/animation/successful.json",
-              repeat: true,
-              reverse: true,
-              height: 80
+            title: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: SizedBox(
+                width: 30,
+                child: Lottie.asset(
+                  "assets/animation/successful.json",
+                  repeat: true,
+                  reverse: true,
+                  height: 100
+                ),
+              ),
             ), 
             content: MyText(text: json.decode(value.body)['message'], fontWeight: FontWeight.w500, left: 10, right: 10,)
           );
@@ -63,14 +67,22 @@ class _AdmissionState extends State<Admission> {
           
           SoundUtil.soundAndVibrate('mixkit-tech-break-fail-2947.wav');
 
-          await DialogCom().dialogMessage(context, 
-            title: Lottie.asset(
-              "assets/animation/failed.json",
-              repeat: true,
-              reverse: true,
-              height: 80
+          await DialogCom().dialogMessage(
+            context,
+            title: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: SizedBox(
+                width: 30,
+                child: Lottie.asset(
+                  "assets/animation/failed.json",
+                  repeat: true,
+                  reverse: true,
+                  height: 100
+                ),
+              ),
             ), 
             content: MyText(text: json.decode(value.body)['message'], fontWeight: FontWeight.w500, left: 10, right: 10,)
+            
           );
         }
         
@@ -84,11 +96,17 @@ class _AdmissionState extends State<Admission> {
 
       DialogCom().dialogMessage(
         context, 
-        title: Lottie.asset(
-          "assets/animation/failed.json",
-          repeat: true,
-          reverse: true,
-          height: 80
+        title: ClipRRect(
+          borderRadius: BorderRadius.circular(100),
+          child: SizedBox(
+            width: 30,
+            child: Lottie.asset(
+              "assets/animation/failed.json",
+              repeat: true,
+              reverse: true,
+              height: 100
+            ),
+          ),
         ), 
         content: MyText(text: "Something wrong $e", fontWeight: FontWeight.w500, left: 10, right: 10,)
       );
@@ -125,18 +143,6 @@ class _AdmissionState extends State<Admission> {
                     EventCardCom(
                       func: () async {
 
-                        // SoundUtil.soundAndVibrate('mixkit-confirmation-tone-2867.wav');
-                        // await DialogCom().dialogMessage(
-                        //   context, 
-                        //   title: Lottie.asset(
-                        //     "assets/animation/successful.json",
-                        //     repeat: true,
-                        //     reverse: true,
-                        //     height: 80
-                        //   ), 
-                        //   content: MyText(text: "json.decode(value.body)['message']", fontWeight: FontWeight.w500, left: 10, right: 10,)
-                        // );
-
                         Navigator.push(
                           context, 
                           Transition(child: QrScanner(title: 'The Greatest Artist', func: admissioinFunc, hallId: 'tga',), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
@@ -151,16 +157,6 @@ class _AdmissionState extends State<Admission> {
                           
                     EventCardCom(
                       func: () async {
-                        // SoundUtil.soundAndVibrate('mixkit-tech-break-fail-2947.wav');
-                        // await DialogCom().dialogMessage(context, 
-                        //   title: Lottie.asset(
-                        //     "assets/animation/failed.json",
-                        //     repeat: true,
-                        //     reverse: true,
-                        //     height: 80
-                        //   ), 
-                        //   content: MyText(text: "json.decode(value.body)['message']", fontWeight: FontWeight.w500, left: 10, right: 10,)
-                        // );
 
                         Navigator.push(
                           context, 

@@ -137,7 +137,7 @@ class QrScannerState extends State<QrScanner> {
                     overlay: QrScannerOverlayShape(
                       borderColor: Colors.white,
                       borderRadius: 10,
-                      borderWidth: 10,
+                      borderWidth: 5,
                     ),
                   ),
                 ]
