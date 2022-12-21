@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
           Vibration.hasVibrator().then((value) async {
 
             if (value == true) {
-              await Vibration.vibrate(duration: 80);
+              await Vibration.vibrate(duration: 90);
             }
           });
 
@@ -118,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
       Vibration.hasVibrator().then((value) async {
 
         if (value == true) {
-          await Vibration.vibrate(duration: 80);
+          await Vibration.vibrate(duration: 90);
         }
       });
 

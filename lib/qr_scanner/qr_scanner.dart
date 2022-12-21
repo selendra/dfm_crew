@@ -30,10 +30,11 @@ class QrScanner extends StatefulWidget {
 class QrScannerState extends State<QrScanner> {
 
   final GlobalKey qrKey = GlobalKey();
-
+  
   QRViewController? _qrViewController;
 
   Future? _onQrViewCreated(QRViewController controller) async {
+
     _qrViewController = controller;
     _qrViewController!.resumeCamera();
     try {
@@ -106,15 +107,36 @@ class QrScannerState extends State<QrScanner> {
         ),
 
         actions: [
-          Align(
-            alignment: Alignment.center,
-            child: widget.hallId == null 
-            ? Container() 
-            : Consumer<MDWSocketProvider>(
-              builder: (context, provider, child) {
-                return MyText(text: widget.hallId == 'vga' ? provider.vga.checkIn.toString() : provider.tga.checkIn.toString(), color2: Colors.black, right: 10);
-              }
-            )
+          Container(
+            margin: EdgeInsets.only(right: 15),
+            child: Align(
+              alignment: Alignment.center,
+              child: widget.hallId == null 
+              ? Container() 
+              : Consumer<MDWSocketProvider>(
+                builder: (context, provider, child) {
+                  return AnimatedTextKit(
+                    // pause: Duration(milliseconds: 300),
+                    repeatForever: true,
+                    animatedTexts: [
+                      
+                      FadeAnimatedText(
+                        widget.hallId == 'vga' ? provider.vga.checkIn.toString() : provider.tga.checkIn.toString(), 
+                        textStyle: TextStyle(color: Color.fromARGB(255, 0, 234, 8), fontSize: 19, fontWeight: FontWeight.bold),
+                        duration: Duration(
+                          milliseconds: 2000
+                        )
+                      ),
+                      // MyText(text: widget.hallId == 'vga' ? provider.vga.checkIn.toString() : provider.tga.checkIn.toString(), color2: Colors.green, right: 10, fontWeight: FontWeight.bold, fontSize: 17,);
+                    ],
+                    onTap: () {
+                      print("Tap Event");
+                    },
+                  );
+                  
+                }
+              )
+            ),
           )
         ],
       ),

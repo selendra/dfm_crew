@@ -82,7 +82,7 @@ class CheckoutCount extends StatelessWidget {
                   await Vibration.hasVibrator().then((value) async {
 
                     if (value == true) {
-                      await Vibration.vibrate(duration: 50);
+                      await Vibration.vibrate(duration: 90);
                     }
 
                     func!(hallId!);
