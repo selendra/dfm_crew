@@ -18,7 +18,9 @@ import 'package:vibration/vibration.dart';
 class Admission extends StatefulWidget {
 
   final PageController? pageController;
-  const Admission({super.key, this.pageController});
+  final String? tabType;
+
+  Admission({super.key, this.pageController, required this.tabType});
 
   @override
   State<Admission> createState() => _AdmissionState();
@@ -122,7 +124,7 @@ class _AdmissionState extends State<Admission> {
   @override
   Widget build(BuildContext context) {
     return Consumer<MDWSocketProvider>(
-      builder: (context, provider, widget) {
+      builder: (context, provider, widgets) {
         return Container(
           color: Colors.blue.withOpacity(0.15),
           padding: const EdgeInsets.all(20),
@@ -145,7 +147,7 @@ class _AdmissionState extends State<Admission> {
 
                         Navigator.push(
                           context, 
-                          Transition(child: QrScanner(title: 'The Greatest Artist', func: admissioinFunc, hallId: 'tga',), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
+                          Transition(child: QrScanner(title: 'The Greatest Artist (${widget.tabType})', func: admissioinFunc, hallId: 'tga',), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
                         );
                       },
                       title: 'The Greatest Artist',
@@ -160,7 +162,7 @@ class _AdmissionState extends State<Admission> {
 
                         Navigator.push(
                           context, 
-                          Transition(child: QrScanner(title: 'Van Gogh Alive', func: admissioinFunc, hallId: 'vga',), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
+                          Transition(child: QrScanner(title: 'Van Gogh Alive (${widget.tabType})', func: admissioinFunc, hallId: 'vga',), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
                         );
                       },
                       title: 'Van Gogh Alive',

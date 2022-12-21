@@ -19,7 +19,9 @@ class Check extends StatefulWidget {
 
   final PageController? pageController;
   
-  const Check({super.key, this.pageController});
+  final String? tabType;
+  
+  Check({super.key, this.pageController, required this.tabType});
 
   @override
   State<Check> createState() => _CheckState();
@@ -120,7 +122,7 @@ class _CheckState extends State<Check> {
   @override
   Widget build(BuildContext context) {
     return Consumer<MDWSocketProvider>(
-      builder: (context, provider, widget) {
+      builder: (context, provider, widgets) {
         return Container(
           color: Colors.green.withOpacity(0.15),
           padding: const EdgeInsets.all(20),
@@ -137,13 +139,13 @@ class _CheckState extends State<Check> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-              
+                    
                     EventCardCom(
                       func: () async {
     
                         Navigator.push(
                           context, 
-                          Transition(child: QrScanner(title: 'The Greatest Artist', func: scanCheck), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
+                          Transition(child: QrScanner(title: 'The Greatest Artist (${widget.tabType})', func: scanCheck), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
                         );
 
                       },
@@ -158,7 +160,7 @@ class _CheckState extends State<Check> {
                         
                         Navigator.push(
                           context, 
-                          Transition(child: QrScanner(title: 'Van Gogh Alive', func: scanCheck), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
+                          Transition(child: QrScanner(title: 'Van Gogh Alive (${widget.tabType})', func: scanCheck), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
                         );
                       },
                       title: 'Van Gogh Alive',

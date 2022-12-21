@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:transition/transition.dart';
 
 class Home extends StatefulWidget {
+  
   const Home({super.key});
 
   @override
@@ -65,10 +66,10 @@ class _HomeState extends State<Home> {
               }
             });
           },
-          children: const [
-            Check(),
-            Admission(),
-            CheckOut(),
+          children: [
+            Check(tabType: 'Check',),
+            Admission(tabType: 'Admission'),
+            const CheckOut(),
           ],
         ),
       ),
