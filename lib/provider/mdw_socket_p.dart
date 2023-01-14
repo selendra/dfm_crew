@@ -64,6 +64,11 @@ class MDWSocketProvider with ChangeNotifier {
 
   }
 
+  void test(){
+
+    _socket.emit("check-in", { 'hallId': 'vga' });
+  }
+
   void listenCheckOut(){
 
     _socket.on('event', (data) {

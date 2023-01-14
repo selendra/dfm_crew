@@ -34,6 +34,9 @@ class _AdmissionState extends State<Admission> {
 
   Future<bool> admissioinFunc(String eventId, String url) async {
 
+    print("eventId $eventId");
+    print("url $url");
+
     _isSuccess = false;
 
     try {
@@ -92,11 +95,11 @@ class _AdmissionState extends State<Admission> {
 
       return _isSuccess!;
 
-    } catch (e) {
+    } catch (er) {
 
       SoundUtil.soundAndVibrate('mixkit-tech-break-fail-2947.wav');
 
-      DialogCom().dialogMessage(
+      await DialogCom().dialogMessage(
         context, 
         title: ClipRRect(
           borderRadius: BorderRadius.circular(100),
@@ -110,11 +113,12 @@ class _AdmissionState extends State<Admission> {
             ),
           ),
         ), 
-        content: MyText(text: "Something wrong $e", fontWeight: FontWeight.w500, left: 10, right: 10,)
+        // ignore: unnecessary_null_comparison
+        content: const MyText(text: "Something when wrong", fontWeight: FontWeight.w500, left: 10, right: 10,)
       );
       
       if (kDebugMode){
-        print("submitLogin failed");
+        print("admissioinFunc failed");
       }
 
       return _isSuccess!;

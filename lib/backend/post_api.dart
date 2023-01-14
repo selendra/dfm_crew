@@ -10,16 +10,20 @@ class PostRequest {
   static String? _body;
 
   static Map<String, dynamic>? _tk;
+  
+  static Map<String, dynamic>? _dfmApi;
 
   static Future<_http.Response> login(final String email, final String password) async {
   
+    _dfmApi = await StorageServices.fetchData('dfm_api');
+    
     _body = json.encode({
       "email": email,
       "password": password
     });
 
     return await _http.post(
-      Uri.parse("${dotenv.get('LOGIN_API')}login/email"),
+      Uri.parse("${_dfmApi!['LOGIN_API']}login/email"),
       headers: conceteHeader(),
       body: _body
     );
@@ -29,14 +33,16 @@ class PostRequest {
   static Future<_http.Response> checkFunc(final String eventId, final String qrcodeData) async {
     
     _tk = await StorageServices.fetchData(dotenv.get('REGISTRAION'));
-
+    
+    _dfmApi = await StorageServices.fetchData('dfm_api');
+    
     _body = json.encode({
       "eventId": eventId,
       "qrcodeData": qrcodeData
     });
 
     return await _http.post(
-      Uri.parse("${dotenv.get('MDW_API')}admissions/check"),
+      Uri.parse("${_dfmApi!['MDW_API']}admissions/check"),
       headers: conceteHeader(key: 'Authorization', value: _tk!['token']),
       body: _body
     );
@@ -46,6 +52,8 @@ class PostRequest {
   static Future<_http.Response> addmissionFunc(final String eventId, final String qrcodeData) async {
     
     _tk = await StorageServices.fetchData(dotenv.get('REGISTRAION'));
+    
+    _dfmApi = await StorageServices.fetchData('dfm_api');
 
     _body = json.encode({
       "eventId": "637ff7274903dd71e36fd4e5",
@@ -53,7 +61,7 @@ class PostRequest {
     });
 
     return await _http.post(
-      Uri.parse("${dotenv.get('MDW_API')}admissions/enter"),
+      Uri.parse("${_dfmApi!['MDW_API']}admissions/enter"),
       headers: conceteHeader(key: 'Authorization', value: _tk!['token']),
       body: _body
     );

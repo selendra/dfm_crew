@@ -92,4 +92,12 @@ class StorageServices {
     }
     return {};
   }
+
+  // static Future<void> queryApiFromGithub(String? seedType) async {
+  //   _preferences = await SharedPreferences.getInstance();
+  //   String? value = _preferences!.getString('wallet_seed_$seedType');
+  //   if (value != null) {
+  //     return jsonDecode(value);
+  //   }
+  // }
 }
