@@ -1,14 +1,19 @@
 import 'dart:convert';
+import 'dart:isolate';
+import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:mdw_crew/backend/get_api.dart';
+import 'package:mdw_crew/provider/download_p.dart';
 import 'package:mdw_crew/provider/mdw_socket_p.dart';
 import 'package:mdw_crew/registration/login.dart';
 import 'package:mdw_crew/service/storage.dart';
 import 'package:provider/provider.dart';
+
 
 void main() async {
 
@@ -20,10 +25,16 @@ void main() async {
 
   SystemChrome.setPreferredOrientations([ DeviceOrientation.portraitUp ]);
 
+  // await FlutterDownloader.initialize(
+  //   debug: true, // optional: set to false to disable printing logs to console (default: true)
+  //   ignoreSsl: true // option: set to false to disable working with http links (default: false)
+  // );
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<MDWSocketProvider>(create: (context) => MDWSocketProvider())
+        ChangeNotifierProvider<MDWSocketProvider>(create: (context) => MDWSocketProvider()),
+        ChangeNotifierProvider<AppUpdateProvider>(create: (context) => AppUpdateProvider())
       ],
       child: const MyApp(),
     )
@@ -43,11 +54,14 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
 
+    // FlutterDownloader.registerCallback( AppUpdateProvider.downloadCallback );
+
     GetRequest.queryDFMApiJson().then((value) {
-      print("value ${value.body}");
       StorageServices.storeData(json.decode(value.body), 'dfm_api');
     });
+
     Provider.of<MDWSocketProvider>(context, listen: false).initSocket();
+
     super.initState();
   }
   
@@ -55,11 +69,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'DFM Crew',
       theme: ThemeData(
         fontFamily: "Barlow",
       ),
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }

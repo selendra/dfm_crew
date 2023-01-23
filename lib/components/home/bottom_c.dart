@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -388,8 +390,13 @@ Widget bottomAppBarNoCheck({
                           // ),
                           onPressed: () async {
 
+                            Map<String, dynamic> _dfmData = await StorageServices.fetchData('dfm_api');
+
                             DialogCom().dialogLoading(context, content: "Signing Out");
                             await StorageServices.clearStorage();
+
+
+                            await StorageServices.storeData(_dfmData, 'dfm_api');
                                             
                             // Dispose Web Socket
                             Provider.of<MDWSocketProvider>(context, listen: false).dispose();

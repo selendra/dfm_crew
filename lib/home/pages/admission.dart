@@ -1,7 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:isolate';
+import 'dart:ui';
 
+import 'package:app_installer/app_installer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mdw_crew/backend/post_api.dart';
@@ -10,10 +15,18 @@ import 'package:mdw_crew/components/event_card_c.dart';
 import 'package:mdw_crew/components/text_c.dart';
 import 'package:mdw_crew/provider/mdw_socket_p.dart';
 import 'package:mdw_crew/qr_scanner/qr_scanner.dart';
+import 'package:mdw_crew/service/storage.dart';
 import 'package:mdw_crew/tool/sound.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:transition/transition.dart';
 import 'package:vibration/vibration.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../backend/get_api.dart';
+
 
 class Admission extends StatefulWidget {
 
@@ -32,10 +45,13 @@ class _AdmissionState extends State<Admission> {
 
   bool? _isSuccess = false;
 
-  Future<bool> admissioinFunc(String eventId, String url) async {
+  @override
+  initState(){
 
-    print("eventId $eventId");
-    print("url $url");
+    super.initState();
+  }
+
+  Future<bool> admissioinFunc(String eventId, String url) async {
 
     _isSuccess = false;
 
@@ -153,6 +169,7 @@ class _AdmissionState extends State<Admission> {
                           context, 
                           Transition(child: QrScanner(title: 'The Greatest Artist (${widget.tabType})', func: admissioinFunc, hallId: 'tga',), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
                         );
+
                       },
                       title: 'The Greatest Artist',
                       qty: provider.tga.checkIn.toString(),
@@ -168,6 +185,7 @@ class _AdmissionState extends State<Admission> {
                           context, 
                           Transition(child: QrScanner(title: 'Van Gogh Alive (${widget.tabType})', func: admissioinFunc, hallId: 'vga',), transitionEffect: TransitionEffect.RIGHT_TO_LEFT)
                         );
+                        
                       },
                       title: 'Van Gogh Alive',
                       qty: provider.vga.checkIn.toString(),

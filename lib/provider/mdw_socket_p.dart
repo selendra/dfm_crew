@@ -19,8 +19,6 @@ class MDWSocketProvider with ChangeNotifier {
     _socket.connect();
 
     _socket.onConnect((_) {
-
-      print('connect');
       
       listenAdmission();
 
@@ -41,7 +39,6 @@ class MDWSocketProvider with ChangeNotifier {
   }
 
   void getAllData(){
-    print("getAllData");
     _socket.emit('getAllData');
 
   }
@@ -49,11 +46,8 @@ class MDWSocketProvider with ChangeNotifier {
   void listenAdmission(){
 
     _socket.on('allData', (data) {
-      print("allData");
-      print("data $data");
-      vga = VGA().fromSocket(data['vga']);
 
-      print("vga ${vga.checkIn.toString()}");
+      vga = VGA().fromSocket(data['vga']);
 
       tga = TGA().fromSocket(data['tga']);
 
@@ -72,7 +66,7 @@ class MDWSocketProvider with ChangeNotifier {
   void listenCheckOut(){
 
     _socket.on('event', (data) {
-      print("listenAdmission ata $data");
+      // print("listenAdmission ata $data");
     });
 
   }

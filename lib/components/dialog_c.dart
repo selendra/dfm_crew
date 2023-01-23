@@ -20,11 +20,11 @@ class DialogCom {
       builder: (context) {
 
         return AlertDialog(
-          title: title!,
+          title: title ?? Container(),
           // titlePadding: const EdgeInsets.all(20),
           titlePadding: edgeInsetsGeometry,
-          content: content,
-          contentPadding: const EdgeInsets.only(bottom: 20, left: 10, right: 10, top: 5),
+          content: content ?? Container(),
+          contentPadding: const EdgeInsets.only(bottom: 10, left: 10, right: 10, top: 10),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
           actions: [
             
