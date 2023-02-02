@@ -119,55 +119,57 @@ class _AppUpdateState extends State<AppUpdate> {
 
   Future<void> _downloadApk() async {
 
-    print("_downloadApk");
-    FlutterDownloader.registerCallback( AppUpdateProvider.downloadCallback );
-    
-    try{
-      await Permission.storage.request().then((storage) async {
-        print("storage.isGranted ${storage.isGranted}");
-        
-        if (storage.isGranted){
+    var url = "https://github.com/selendra/dfm_crew/releases/download/${_updateProvider!.newVer}/dfm_crew_${_updateProvider!.newVer}.apk";
 
-          appDocDir = await getExternalStorageDirectory();
-          String appDocPath = appDocDir!.path;
+    // Dio dio = Dio();
 
-          // var url = "https://github.com/selendra/dfm_crew/releases/tag/v1.0.2";
-          var url = "https://github.com/selendra/dfm_crew/releases/download/${_updateProvider!.newVer}/dfm_crew_${_updateProvider!.newVer}.apk";
+    try {
+      if (await canLaunchUrl(Uri.parse(url))){
 
-          // Dio dio = Dio();
-
-          try {
-            if (await canLaunchUrl(Uri.parse(url))){
-
-            await launchUrl( Uri.parse(url), mode: LaunchMode.externalApplication);
-            }
-            // var dir = await getApplicationDocumentsDirectory();
-            // print("Download complete. statusCode: ${response.statusCode}");
-          } catch (e) {
-            print(e);
-          }
-          // await submitLogin();
-          // final taskId = await FlutterDownloader.enqueue(
-          //   url: 'https://github.com/selendra/dfm_crew/releases/download/${_updateProvider!.newVer}/dfm_crew_${_updateProvider!.newVer}.apk',
-          //   headers: {}, // optional: header send with url (auth token etc)
-          //   savedDir: appDocPath,
-          //   fileName: "dfm_crew_${_updateProvider!.newVer}.apk",
-          //   showNotification: true, // show download progress in status bar (for Android)
-          //   openFileFromNotification: true, // click on notification to open downloaded file (for Android)
-          //   saveInPublicStorage: true
-          // );
-
-          // setState(() {
-          //   _updateProvider!.isUpdate = true;
-          // });
-
-          await StorageServices.storeData(DLStatus.DOWNLOADING.toString(), dotenv.get('DOWNLOAD_STATUS'));
-        }
-      });
-
+      await launchUrl( Uri.parse(url), mode: LaunchMode.externalApplication);
+      }
+      // var dir = await getApplicationDocumentsDirectory();
+      // print("Download complete. statusCode: ${response.statusCode}");
     } catch (e) {
-      print("Error FlutterDownloader $e");
+      print(e);
     }
+
+    print("_downloadApk");
+    // FlutterDownloader.registerCallback( AppUpdateProvider.downloadCallback );
+    
+    // try{
+    //   await Permission.storage.request().then((storage) async {
+    //     print("storage.isGranted ${storage.isGranted}");
+        
+    //     if (storage.isGranted){
+
+    //       appDocDir = await getExternalStorageDirectory();
+    //       String appDocPath = appDocDir!.path;
+
+    //       // var url = "https://github.com/selendra/dfm_crew/releases/tag/v1.0.2";
+          
+    //       // await submitLogin();
+    //       // final taskId = await FlutterDownloader.enqueue(
+    //       //   url: 'https://github.com/selendra/dfm_crew/releases/download/${_updateProvider!.newVer}/dfm_crew_${_updateProvider!.newVer}.apk',
+    //       //   headers: {}, // optional: header send with url (auth token etc)
+    //       //   savedDir: appDocPath,
+    //       //   fileName: "dfm_crew_${_updateProvider!.newVer}.apk",
+    //       //   showNotification: true, // show download progress in status bar (for Android)
+    //       //   openFileFromNotification: true, // click on notification to open downloaded file (for Android)
+    //       //   saveInPublicStorage: true
+    //       // );
+
+    //       // setState(() {
+    //       //   _updateProvider!.isUpdate = true;
+    //       // });
+
+    //       await StorageServices.storeData(DLStatus.DOWNLOADING.toString(), dotenv.get('DOWNLOAD_STATUS'));
+    //     }
+    //   });
+
+    // } catch (e) {
+    //   print("Error FlutterDownloader $e");
+    // }
   }
 
   Future<void> installApps() async {

@@ -56,11 +56,13 @@ class _MyAppState extends State<MyApp> {
 
     // FlutterDownloader.registerCallback( AppUpdateProvider.downloadCallback );
 
-    GetRequest.queryDFMApiJson().then((value) {
+    GetRequest.queryDFMApiJson().then((value) async {
+      
       StorageServices.storeData(json.decode(value.body), 'dfm_api');
-    });
 
-    Provider.of<MDWSocketProvider>(context, listen: false).initSocket();
+      // Initialize Socket
+      Provider.of<MDWSocketProvider>(context, listen: false).initSocket(json.decode(value.body)['ws']);
+    });
 
     super.initState();
   }
