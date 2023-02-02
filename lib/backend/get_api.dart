@@ -8,7 +8,7 @@ class GetRequest {
 
   static Future<_http.Response> queryDFMApiJson() async {
   
-    print("${dotenv.get('SELENDRA_API')}dfm.json");
+    print("${dotenv.get('SELENDRA_API')}dfm_2.json");
     // print("dotenv.get('SELENDRA_API') ${dotenv.get('SELENDRA_API')}");
     String _api = dotenv.get('SELENDRA_API');
     return await _http.get(
