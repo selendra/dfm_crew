@@ -37,7 +37,7 @@ class PostRequest {
     _dfmApi = await StorageServices.fetchData('dfm_api');
     
     _body = json.encode({
-      "eventId": eventId,
+      "eventId": '637ff7274903dd71e36fd4e5',//eventId,
       "qrcodeData": qrcodeData
     });
 

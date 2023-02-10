@@ -15,7 +15,6 @@ class Authentication {
     try {
       final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
 
-      print("googleSignInAccount != null ${googleSignInAccount != null}");
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
@@ -41,7 +40,7 @@ class Authentication {
         }
       }
     } catch (e) {
-      print("Error signInWithGoogle $e");
+      // print("Error signInWithGoogle $e");
     }
 
     return user;

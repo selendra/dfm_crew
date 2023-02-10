@@ -70,6 +70,7 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+      // bottomNavigationBar: bottomAppBar(context: context, controller: controller, active: active)
       bottomNavigationBar: bottomAppBarNoCheck(context: context, controller: controller, active: active)
     );
   }

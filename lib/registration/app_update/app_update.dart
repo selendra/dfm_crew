@@ -10,6 +10,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:lottie/lottie.dart';
 import 'package:mdw_crew/components/dialog_c.dart';
 import 'package:mdw_crew/constants/download_status.dart';
 import 'package:mdw_crew/provider/download_p.dart';
@@ -64,9 +65,7 @@ class _AppUpdateState extends State<AppUpdate> {
   }
 
   void statusChecker() async {
-    print(dotenv.get("DOWNLOAD_STATUS"));
     await StorageServices.fetchData(dotenv.get("DOWNLOAD_STATUS")).then((value) {
-      print("statusChecker value $value");
       if (value != null){
         if (value == DLStatus.DOWNLOADING.toString()){
           _updateProvider!.isUpdate = true;
@@ -82,7 +81,7 @@ class _AppUpdateState extends State<AppUpdate> {
 
     setState(() {
       _updateProvider!.msg = [
-        "Your apps v${widget.appVer} is up to date",
+        "Apps v${widget.appVer} is up to date",
         "New version available ${_updateProvider!.newVer}"
       ];
     });
@@ -92,7 +91,6 @@ class _AppUpdateState extends State<AppUpdate> {
 
     // Query and Get Data From Local Storage
     await StorageServices.fetchData('dfm_api').then((value) async {
-      print("value $value");
       if (value != null){
         
         if (value['app_version'] != "v${widget.appVer}"){
@@ -124,17 +122,26 @@ class _AppUpdateState extends State<AppUpdate> {
     // Dio dio = Dio();
 
     try {
-      if (await canLaunchUrl(Uri.parse(url))){
-
       await launchUrl( Uri.parse(url), mode: LaunchMode.externalApplication);
-      }
+      // if (await canLaunchUrl(Uri.parse(url))){
+
+      // }
       // var dir = await getApplicationDocumentsDirectory();
       // print("Download complete. statusCode: ${response.statusCode}");
     } catch (e) {
-      print(e);
+
+      await DialogCom().dialogMessage(
+        context, 
+        title: Lottie.asset(
+          "assets/animation/failed.json",
+          repeat: true,
+          reverse: true,
+          height: 80
+        ), 
+        content: MyText(text: e.toString(), fontWeight: FontWeight.w500, left: 10, right: 10,)
+      );
     }
 
-    print("_downloadApk");
     // FlutterDownloader.registerCallback( AppUpdateProvider.downloadCallback );
     
     // try{
@@ -172,47 +179,41 @@ class _AppUpdateState extends State<AppUpdate> {
     // }
   }
 
-  Future<void> installApps() async {
+  // Future<void> installApps() async {
 
-    IsolateNameServer.removePortNameMapping('downloader_send_port');
+  //   IsolateNameServer.removePortNameMapping('downloader_send_port');
 
-    await Permission.storage.request().then((storage) async {
-      print("storage.isGranted ${storage.isGranted}");
+  //   await Permission.storage.request().then((storage) async {
        
-      if (storage.isGranted){
+  //     if (storage.isGranted){
     
-        appDocDir = await getExternalStorageDirectory();
-        // if (appDocDir == null) {
-        // }
-        // String appDocPath = appDocDir!.path;
-
-        print(appDocDir!.path);
+  //       appDocDir = await getExternalStorageDirectory();
+  //       // if (appDocDir == null) {
+  //       // }
+  //       // String appDocPath = appDocDir!.path;
         
-        print("appDocPath ${appDocDir!.path.contains('apk')}");
-        
-        if (appDocDir!.path.contains('apk')){
+  //       if (appDocDir!.path.contains('apk')){
 
-          await Permission.requestInstallPackages.request().then((value) async {
-            print("value.isGranted ${value.isGranted}");
-            if (value.isGranted){
+  //         await Permission.requestInstallPackages.request().then((value) async {
+  //           if (value.isGranted){
 
-              FileSystemEntity _apkPath = await appDocDir!.list().first;
-              print(_apkPath.path);
-              await AppInstaller.installApk(_apkPath.path); 
+  //             FileSystemEntity _apkPath = await appDocDir!.list().first;
+  //             print(_apkPath.path);
+  //             await AppInstaller.installApk(_apkPath.path); 
 
-            }
-          });
+  //           }
+  //         });
 
-        } else {
+  //       } else {
 
-          await StorageServices.storeData(DLStatus.DOWNLOAD.toString(), dotenv.get("DOWNLOAD_STATUS"));
-          await StorageServices.fetchData(dotenv.get("DOWNLOAD_STATUS"));
+  //         await StorageServices.storeData(DLStatus.DOWNLOAD.toString(), dotenv.get("DOWNLOAD_STATUS"));
+  //         await StorageServices.fetchData(dotenv.get("DOWNLOAD_STATUS"));
 
-        }
-      }
-    });
+  //       }
+  //     }
+  //   });
 
-  }
+  // }
   
   @override
   Widget build(BuildContext context) {
@@ -231,7 +232,7 @@ class _AppUpdateState extends State<AppUpdate> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 
-                if (!provider.isUpdate)
+                // if (!provider.isUpdate)
                 UpdateNow(isAvailable: provider.isAvailale, msg: provider.msg[ !provider.isAvailale ? 0 : 1], downloadFunc: _downloadApk),
 
                 // if (provider.isUpdate && provider.progress != 100) 

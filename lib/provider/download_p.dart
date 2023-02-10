@@ -17,47 +17,45 @@ class AppUpdateProvider with ChangeNotifier {
   bool isAvailale = false;
   bool isUpdate = false;
 
-  ReceivePort _port = ReceivePort();
-
   List<String> msg = [];
 
   String? newVer;
 
-  void registerIsolation(BuildContext context, Function? installApps) async {
+  // void registerIsolation(BuildContext context, Function? installApps) async {
 
-    IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
-      _port.listen((dynamic data) async {
-        print("listen _port $data");
-        String id = data[0];
-        DownloadTaskStatus status = data[1];
-        print("status.value ${status.value}");
-        if (status.value == 4){
-          await DialogCom().dialogMessage(
-            context, 
-            title: MyText(text: "Oops",), 
-            content: MyText(text: "It seem you already install"), 
-            action2: TextButton(
-              onPressed: () async {
-                await installApps!();
-              }, 
-              child: MyText(text: "Install now",)
-            )
-          );
-        }
+  //   IsolateNameServer.registerPortWithName(_port.sendPort, 'downloader_send_port');
+  //     _port.listen((dynamic data) async {
+  //       print("listen _port $data");
+  //       String id = data[0];
+  //       DownloadTaskStatus status = data[1];
+  //       print("status.value ${status.value}");
+  //       if (status.value == 4){
+  //         await DialogCom().dialogMessage(
+  //           context, 
+  //           title: MyText(text: "Oops",), 
+  //           content: MyText(text: "It seem you already install"), 
+  //           action2: TextButton(
+  //             onPressed: () async {
+  //               await installApps!();
+  //             }, 
+  //             child: MyText(text: "Install now",)
+  //           )
+  //         );
+  //       }
 
-        if (data[2] != -1) {
-          progress = data[2];
+  //       if (data[2] != -1) {
+  //         progress = data[2];
 
-          if (progress == 100){
-            await StorageServices.storeData(DLStatus.DOWNLOADED.toString(), dotenv.get("DOWNLOAD_STATUS"));
-          }
+  //         if (progress == 100){
+  //           await StorageServices.storeData(DLStatus.DOWNLOADED.toString(), dotenv.get("DOWNLOAD_STATUS"));
+  //         }
           
-        }
+  //       }
 
-        notifyListeners();
+  //       notifyListeners();
         
-      });
-  }
+  //     });
+  // }
 
   void dispose(){
 

@@ -130,7 +130,6 @@ class QrScannerState extends State<QrScanner> {
                       // MyText(text: widget.hallId == 'vga' ? provider.vga.checkIn.toString() : provider.tga.checkIn.toString(), color2: Colors.green, right: 10, fontWeight: FontWeight.bold, fontSize: 17,);
                     ],
                     onTap: () {
-                      print("Tap Event");
                     },
                   );
                   

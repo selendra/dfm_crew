@@ -10,7 +10,6 @@ class MDWSocketProvider with ChangeNotifier {
   IO.Socket? _socket;
   
   void initSocket(String url){
-    print("initSocket url $url");
     _socket = IO.io(
       url, <String, dynamic>{
         'autoConnect': true,

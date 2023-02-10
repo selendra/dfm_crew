@@ -52,13 +52,11 @@ class _AdmissionState extends State<Admission> {
   }
 
   Future<bool> admissioinFunc(String eventId, String url) async {
-
     _isSuccess = false;
 
     try {
 
       await PostRequest.addmissionFunc(eventId, url).then((value) async {
-        
         if (value.statusCode == 200 && json.decode(value.body)['status'] == 'Success'){
 
           _isSuccess = false;
